@@ -7,7 +7,7 @@ const users = [
   { username: "ian", email: "ian@aol.com", password: "root123" },
   { username: "kat", email: "kat@aol.com", password: "root123" },];
 const tasks = [
-  { title: "Tarea 1", description: "Descripción 1", userId: 1 },
+  { title: "Tarea 1", description: "Descripcion 1", userId: 1 },
   { title: "Estudiar", description: "Node", userId: 1 },
   { title: "Dormir", userId: 2 },
   { title: "Comer", description: "Hamburguesa", userId: 3 }
