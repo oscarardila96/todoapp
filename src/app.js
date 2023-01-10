@@ -4,6 +4,8 @@ const db = require("./utils/database");
 const initModels = require("./models/init.model");
 const Users = require("./models/users.model");
 const Tasks = require("./models/tasks.model");
+const userRoutes = require("./routes/users.routes");
+const taskRoutes = require("./routes/tasks.routes");
 
 //Crear instancia de express
 const app = express();
@@ -23,6 +25,9 @@ initModels();
 db.sync({ force: false })
   .then(() => console.log("Base de datos sincronizada"))
   .catch(error => console.log(error));
+
+app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/tasks", taskRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Bienvenido al servidor" })
