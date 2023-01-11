@@ -1,6 +1,5 @@
 const UserServices = require("../services/user.service");
 
-
 const getAllUsers = async (req, res) => {
   try {
     const result = await UserServices.getAll();
@@ -19,6 +18,16 @@ const getUserById = async (req, res) => {
     res.status(400).json(error.message)
   }
 };
+
+const getUserWithTasks = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await UserServices.getWithTasks(id);
+    res.json(result);
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+}
 
 const createUser = async (req, res) => {
   try {
@@ -49,4 +58,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { getAllUsers, getUserById, createUser, updateUser, deleteUser };
+module.exports = { getAllUsers, getUserById, getUserWithTasks, createUser, updateUser, deleteUser };

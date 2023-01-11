@@ -1,4 +1,6 @@
+const Categories = require("../models/categories.model");
 const Tasks = require("../models/tasks.model");
+const TaskCategories = require("../models/task_categories.model");
 
 class TaskServices {
   static async getAll() {
@@ -12,6 +14,27 @@ class TaskServices {
   static async getById(id) {
     try {
       const result = Tasks.findByPk(id);
+      return result;
+    } catch (error) {
+      throw error;
+    }
+  }
+  static async getWithCategories(id) {
+    try {
+      const result = await Tasks.findOne({
+        where: { id },
+        attributes: ["title", "description", "isComplete", "userId"],
+        include: {
+          model: TaskCategories,
+          as: "category",
+          attributes: { exclude: ["id", "taskId", "task_id", "category_id"] },
+          include: {
+            model: Categories,
+            as: "category",
+            attributes: { exclude: ["id"] }
+          }
+        }
+      });
       return result;
     } catch (error) {
       throw error;

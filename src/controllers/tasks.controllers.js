@@ -19,6 +19,16 @@ const getTaskById = async (req, res) => {
   }
 };
 
+const getTaskWithCategories = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await TaskServices.getWithCategories(id);
+    res.json(result);
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+};
+
 const createTask = async (req, res) => {
   try {
     const newUser = req.body;
@@ -50,4 +60,4 @@ const deleteTask = async (req, res) => {
   }
 };
 
-module.exports = { getAllTasks, getTaskById, createTask, updateTask, deleteTask };
+module.exports = { getAllTasks, getTaskById, getTaskWithCategories, createTask, updateTask, deleteTask };
