@@ -6,6 +6,7 @@ const Users = require("./models/users.model");
 const Tasks = require("./models/tasks.model");
 const userRoutes = require("./routes/users.routes");
 const taskRoutes = require("./routes/tasks.routes");
+const categoryRoutes = require("./routes/categories.routes");
 
 //Crear instancia de express
 const app = express();
@@ -28,6 +29,7 @@ db.sync({ force: false })
 
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/tasks", taskRoutes);
+app.use("/api/v1/categories", categoryRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Bienvenido al servidor" })

@@ -29,6 +29,22 @@ const getTaskWithCategories = async (req, res) => {
   }
 };
 
+// const getTodosWithCategories = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const result = await TodosServices.getWithCategories(id);
+//     res.json({
+//       message: "Envinado tareas con categorias",
+//       data: result,
+//     });
+//   } catch (error) {
+//     res.status(400).json({
+//       error: error.messages,
+//       details: error.stack,
+//     });
+//   }
+// };
+
 const createTask = async (req, res) => {
   try {
     const newUser = req.body;

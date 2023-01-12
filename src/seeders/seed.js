@@ -9,26 +9,24 @@ const users = [
   { username: "ian", email: "ian@aol.com", password: "root123" },
   { username: "kat", email: "kat@aol.com", password: "root123" },];
 const tasks = [
-  { title: "Estudiar node", description: "Descripcion 1", userId: 1 },
-  { title: "Pasear al perro", description: "Node", userId: 1 },
-  { title: "lavar platos", userId: 2 },
-  { title: "chequeo mensual", description: "Hamburguesa", userId: 3 }
-
+  { title: "Estudiar node", description: "Descripcion 1", user_id: 1 },
+  { title: "Pasear al perro", description: "Node", user_id: 1 },
+  { title: "lavar platos", user_id: 2 },
+  { title: "chequeo mensual", description: "Hamburguesa", user_id: 3 }
 ];
 
 const categories = [
-  { name: "personal" },
-  { name: "educación" },
-  { name: "salud" },
-  { name: "trabajo" },
-  { name: "hogar" },
-  { name: "cocina" },
-  { name: "deporte" },
-  { name: "ocio" },
-  { name: "financiero" },
-  { name: "otros" }
+  { name: "personal", user_id: 1 },
+  { name: "educación", user_id: 1 },
+  { name: "salud", user_id: 1 },
+  { name: "trabajo", user_id: 2 },
+  { name: "hogar", user_id: 2 },
+  { name: "cocina", user_id: 2 },
+  { name: "deporte", user_id: 3 },
+  { name: "ocio", user_id: 3 },
+  { name: "financiero", user_id: 3 },
+  { name: "otros", user_id: 3 }
 ];
-
 
 const taskCategories = [
   { categoryId: 1, taskId: 1 },
@@ -44,7 +42,7 @@ const taskCategories = [
   { categoryId: 3, taskId: 4 },
 ]
 
-db.sync({ force: true })
+db.sync({ force: false })
   .then(() => {
     console.log("Iniciando seeding")
     users.forEach(user => Users.create(user))

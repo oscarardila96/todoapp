@@ -12,6 +12,10 @@ const initModels = () => {
   Tasks.belongsTo(Users, { as: "author", foreignKey: "user_id" }); //Se verá en el JSON de respuesta
   Users.hasMany(Tasks, { as: "task", foreignKey: "user_id" });
 
+  Categories.belongsTo(Users, { as: "author", foreignKey: "user_id" });
+  Users.hasMany(Categories, { as: "category", foreignKey: "user_id" });
+
+
   TaskCategories.belongsTo(Tasks, { as: "task", foreignKey: "task_id" });
   Tasks.hasMany(TaskCategories, { as: "category", foreignKey: "task_id" });
 
