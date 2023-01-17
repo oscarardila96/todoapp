@@ -2,16 +2,18 @@
 const express = require("express")
 const db = require("./utils/database");
 const initModels = require("./models/init.model");
-const Users = require("./models/users.model");
-const Tasks = require("./models/tasks.model");
 const userRoutes = require("./routes/users.routes");
 const taskRoutes = require("./routes/tasks.routes");
 const categoryRoutes = require("./routes/categories.routes");
+const authRoutes = require("./routes/auth.routes");
+const cors = require("cors");
+
 
 //Crear instancia de express
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 
 const PORT = 8000;
 
@@ -30,134 +32,11 @@ db.sync({ force: false })
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/tasks", taskRoutes);
 app.use("/api/v1/categories", categoryRoutes);
+app.use("/api/v1", authRoutes);
 
 app.get("/", (req, res) => {
-  res.status(200).json({ message: "Bienvenido al servidor" })
+  res.json({ message: "Bienvenido al servidor" })
 });
-
-//Definir las rutas de los endpoints (de ahora en adelante EP)
-//Consultas de usuarios = localhost:8000/users
-//Consultas de tareas = localhost:8000/tasks
-
-//Obtener todos los usuarios
-app.get("/users", async (req, res) => {
-  try {
-    //obtener el resultado de consultar a todos los usuarios de la base de datos
-    const result = await Users.findAll();
-    res.status(200).json(result)
-  } catch (error) {
-    res.status(400).json(error.message)
-  }
-});
-
-//Obtener por ID (Primary ID)
-app.get("/users/:id", async (req, res) => {
-  try {
-    console.log(req.params);
-    const { id } = req.params;
-    const result = await Users.findByPk(id)
-    res.status(200).json(result);
-  } catch (error) {
-    res.status(400).json(error.message)
-  }
-});
-
-//Obtener por username
-app.get("/users/username/:username", async (req, res) => {
-  try {
-    const { username } = req.params;
-    const result = await Users.findOne({ where: { username } });
-    res.status(200).json(result);
-  } catch (error) {
-    res.status(400).json(error.message)
-  }
-});
-
-//Crear un usuario
-app.post("/users", async (req, res) => {
-  try {
-    const user = req.body;
-    const result = await Users.create(user)
-    res.status(201).json(result)
-  } catch (error) {
-    res.status(400).json(error.message)
-  }
-})
-
-//Actualizar usuario
-app.put("/users/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const field = req.body;
-    const result = await Users.update(field, { where: { id } });
-    res.status(200).json(result)
-  } catch (error) {
-    res.status(400).json(error.message)
-  }
-})
-
-//Eliminar un usuario
-
-app.delete("/users/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const result = await Users.destroy({ where: { id } });
-    res.status(200).json(result);
-  } catch (error) {
-    res.status(400).json(error.message);
-  }
-});
-
-app.get("/tasks", async (req, res) => {
-  try {
-    const result = await Tasks.findAll();
-    res.status(200).json(result);
-  } catch (error) {
-    res.status(400).json(error.message)
-  }
-});
-
-app.get("/tasks/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const result = await Tasks.findByPk(id);
-    res.status(200).json(result);
-  } catch (error) {
-    res.status(400).json(error.message)
-  }
-});
-
-app.post("/tasks", async (req, res) => {
-  try {
-    const task = req.body;
-    const result = await Tasks.create(task);
-    res.status(201).json(result);
-  } catch (error) {
-    res.status(400).json(error.message)
-  }
-});
-
-app.put("/tasks/:id", async (req, res) => {
-  try {
-    console.log(req.params);
-    const { id } = req.params;
-    const field = req.body;
-    const result = await Tasks.update(field, { where: { id } });
-    res.status(200).json(result);
-  } catch (error) {
-    res.status(400).json(error.message);
-  }
-});
-
-app.delete("/tasks/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const result = await Tasks.destroy({ where: { id } });
-    res.status(200).json(result);
-  } catch (error) {
-    res.status(400).json(error.message);
-  }
-})
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`)

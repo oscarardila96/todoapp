@@ -7,7 +7,8 @@ const TaskCategories = require("../models/task_categories.model");
 const users = [
   { username: "oscar", email: "oscar@aol.com", password: "root123" },
   { username: "ian", email: "ian@aol.com", password: "root123" },
-  { username: "kat", email: "kat@aol.com", password: "root123" },];
+  { username: "kat", email: "kat@aol.com", password: "root123" }
+];
 const tasks = [
   { title: "Estudiar node", description: "Descripcion 1", user_id: 1 },
   { title: "Pasear al perro", description: "Node", user_id: 1 },
