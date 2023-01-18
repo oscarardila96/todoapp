@@ -7,7 +7,7 @@ const taskRoutes = require("./routes/tasks.routes");
 const categoryRoutes = require("./routes/categories.routes");
 const authRoutes = require("./routes/auth.routes");
 const cors = require("cors");
-
+require("dotenv").config();
 
 //Crear instancia de express
 const app = express();
@@ -15,7 +15,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const PORT = 8000;
+const PORT = process.env.PORT;
 
 //Probando la conexión a la base de datos
 
